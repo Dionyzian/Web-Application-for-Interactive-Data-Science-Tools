@@ -66,14 +66,14 @@ const DataTransformation = ({ data, originalData, numericalFeatures, nominalFeat
         newData = oneHotEncode(data, nominalFeatures)
         break
       case "Using Z-Score":
-        return
+        break
       case "Using IQR":
-        return
+        break
       case "PCA":
-        return
+        break
       case "Reset":
         newData = originalData
-        return
+        break
     }
 
     console.log(newData)
