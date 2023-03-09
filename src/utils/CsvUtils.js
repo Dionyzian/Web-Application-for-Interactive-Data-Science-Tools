@@ -306,7 +306,6 @@ export function exponentialTransform(data, numericalFeatures) {
 export function oneHotEncode(data, nominalFeatures) {
   const encodedData = [];
 
-  // Loop through each row of the data
   for (let i = 0; i < data.length; i++) {
     const encodedRow = {};
 
@@ -317,9 +316,9 @@ export function oneHotEncode(data, nominalFeatures) {
         for (let value of values) {
           encodedRow[`${feature}_${value}`] = data[i][feature] === value ? 1 : 0;
         }
-      } else {
-        encodedRow[feature] = data[i][feature];
       }
+
+      encodedRow[feature] = data[i][feature];
     }
 
     encodedData.push(encodedRow);
@@ -327,3 +326,4 @@ export function oneHotEncode(data, nominalFeatures) {
 
   return encodedData;
 }
+
