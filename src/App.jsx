@@ -133,7 +133,7 @@ function App() {
         <h2 className='text-[#524E54] text-xl md:text-3xl font-source font-bold ml-4 md:ml-12 text-center md:text-left'>available processes</h2>
         <CleaningService />
         <BarChartIcon />
-        <CalculatorIcon className='ml-2' />
+        <CalculatorIcon className='ml-3' />
       </div>
 
       <div className='mx-auto lg:mx-0 mt-[5em] mb-[1em]'>
