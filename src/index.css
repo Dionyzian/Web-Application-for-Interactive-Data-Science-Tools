@@ -1,0 +1,293 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    background-color: #F8F9FA;
+}
+
+/******Animation for the scatter plot********/
+@keyframes fade-in-up {
+    0% {
+        opacity: 0;
+        transform: translateY(10%) scale(0.95);
+        box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateY(0) scale(1.05);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    100% {
+        transform: translateY(0) scale(1);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+}
+
+.animate-fade-in-up {
+    animation-name: fade-in-up;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
+    opacity: 1;
+    transform: translateY(10%) scale(0.95);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+}
+
+
+/*********************************************/
+
+
+/*************************/
+@keyframes slide-in {
+    25% {
+        opacity: 1;
+        transform: translateY(-25%);
+    }
+
+    50% {
+        transform: translateY(10%);
+    }
+
+    75% {
+        transform: translateY(-5%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+
+}
+
+.animate-slide-in {
+    animation: slide-in 0.8s cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
+}
+
+/**********Overall fading animation for the page************/
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.fade-in {
+    animation-name: fade-in;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+}
+
+/**********************************************************/
+
+
+/************Styled scrollbar************/
+::-webkit-scrollbar {
+    width: 10px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+/*****************************************/
+
+
+/***********Arrow up icon****************/
+
+
+@keyframes dash {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes fill {
+    from {
+        fill: transparent;
+    }
+
+    to {
+        fill: #1D3557;
+    }
+}
+
+#cloud-arrow-up {
+    height: 40px;
+    width: 40px;
+}
+
+@keyframes arrow-fade {
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+#cloud {
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    animation: dash 2s linear forwards, fill 1s linear 1s forwards;
+}
+
+#arrow {
+    fill: #1D3557;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+    transform: translateY(100%);
+    opacity: 0;
+    animation: arrow-fade 1s ease-out 1s forwards;
+}
+
+#arrow #cloud-arrow-up {
+    transform: translateY(0);
+    opacity: 1;
+    animation: none;
+}
+
+
+/*****************************************/
+
+.icon {
+    fill: #1D3557;
+}
+
+/***********Arrow up icon****************/
+
+#cleaning-service-icon {
+    animation: sweep 2s ease-in-out forwards;
+}
+
+@keyframes sweep {
+    0% {
+        transform: rotate(0deg) translate(0, 0);
+    }
+
+    25% {
+        transform: rotate(-10deg) translate(1px, 1px);
+    }
+
+    50% {
+        transform: rotate(0deg) translate(3px, 3px);
+    }
+
+    75% {
+        transform: rotate(7deg) translate(1px, 1px);
+    }
+
+    100% {
+        transform: rotate(0deg) translate(0, 0);
+    }
+}
+
+
+/****************************************/
+
+
+
+/*******Bar chart icon*******************/
+
+#bar-1,
+#bar-2,
+#bar-3 {
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    stroke-width: 1;
+    animation: offset 1s ease-in-out forwards, fadein 1s linear forwards;
+}
+
+#bar-1 {
+    transform: translate(22%);
+}
+
+#bar-3 {
+    transform: translate(-22%);
+}
+
+#border {
+    animation: fadein 1.5s ease-out forwards;
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes offset {
+    from {
+        fill: transparent;
+    }
+
+    to {
+        transform: scaleY(1);
+        stroke-dashoffset: 0;
+        fill: #1D3557;
+    }
+}
+
+
+
+
+
+/***************************************/
+
+/*********Calculator icon***************/
+#screen {
+    fill: #F8F9FA;
+}
+
+.button {
+    fill: #F8F9FA;
+}
+
+
+.button:nth-child(7) {
+    animation: fill-2 0.8s ease-in-out 0.5s forwards;
+}
+
+.button:nth-child(4) {
+    animation: fill-2 0.8s ease-in-out 1s forwards;
+}
+
+.button:nth-child(6) {
+    animation: fill-2 0.8s ease-in-out 1.5s forwards;
+}
+
+@keyframes fill-2 {
+
+    0% {
+        fill: #1D3557;
+    }
+
+    100% {
+        fill: #F8F9FA;
+    }
+}
+
+
+/***************************************/
