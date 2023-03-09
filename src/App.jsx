@@ -123,7 +123,7 @@ function App() {
 
       <div className='flex items-center justify-center md:justify-start'>
         <h2 className='text-[#524E54] text-xl md:text-3xl font-source font-bold text-center md:text-left'>Import your data </h2>
-        <CloudArrowUp className='w-6 h-6 mr-2 ml-2' />
+        <CloudArrowUp className='hero-icon w-6 h-6 mr-2 ml-2' />
       </div>
 
       <h2 className='text-[#524E54] text-xl md:text-3xl font-source font-bold text-center md:text-left'>Clean, visualize and analyze it through various</h2>
@@ -131,9 +131,9 @@ function App() {
       <div className='flex items-center justify-center md:justify-start'>
 
         <h2 className='text-[#524E54] text-xl md:text-3xl font-source font-bold ml-4 md:ml-12 text-center md:text-left'>available processes</h2>
-        <CleaningService />
-        <BarChartIcon />
-        <CalculatorIcon className='ml-3' />
+        <CleaningService className='hero-icon' />
+        <BarChartIcon className='hero-icon' />
+        <CalculatorIcon className='hero-icon ml-3' />
       </div>
 
       <div className='mx-auto lg:mx-0 mt-[5em] mb-[1em]'>

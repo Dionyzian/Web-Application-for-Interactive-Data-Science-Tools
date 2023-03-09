@@ -176,6 +176,8 @@ body {
 
 #cleaning-service-icon {
     animation: sweep 2s ease-in-out forwards;
+    animation-delay: 0.6s;
+    /* delay the animation by 0.6 seconds */
 }
 
 @keyframes sweep {
@@ -201,6 +203,7 @@ body {
 }
 
 
+
 /****************************************/
 
 
@@ -214,6 +217,8 @@ body {
     stroke-dashoffset: 200;
     stroke-width: 1;
     animation: offset 1s ease-in-out forwards, fadein 1s linear forwards;
+    animation-delay: 1.5s;
+    /* delay the animation by 1.5 seconds */
 }
 
 #bar-1 {
@@ -251,6 +256,7 @@ body {
 }
 
 
+
 /***************************************/
 
 /*********Calculator icon***************/
@@ -262,21 +268,19 @@ body {
     fill: #F8F9FA;
 }
 
-
 .button:nth-child(7) {
-    animation: fill-2 0.8s ease-in-out 0.5s forwards;
+    animation: fill-2 0.8s ease-in-out 2s forwards;
 }
 
 .button:nth-child(4) {
-    animation: fill-2 0.8s ease-in-out 1s forwards;
+    animation: fill-2 0.8s ease-in-out 2.5s forwards;
 }
 
 .button:nth-child(6) {
-    animation: fill-2 0.8s ease-in-out 1.5s forwards;
+    animation: fill-2 0.8s ease-in-out 3s forwards;
 }
 
 @keyframes fill-2 {
-
     0% {
         fill: #1D3557;
     }
@@ -286,5 +290,44 @@ body {
     }
 }
 
+
+/***************************************/
+
+/*General animations for the hero icons*/
+
+.hero-icon {
+    animation: pop 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) both;
+    opacity: 0;
+    transform: scale(0);
+    transform-origin: center center;
+}
+
+.hero-icon:nth-of-type(1) {
+    animation-delay: 0.3s;
+}
+
+.hero-icon:nth-of-type(2) {
+    animation-delay: 0.6s;
+}
+
+.hero-icon:nth-of-type(3) {
+    animation-delay: 0.9s;
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    80% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
 
 /***************************************/
