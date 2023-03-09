@@ -25,7 +25,6 @@ export function csvToJson(csv) {
 }
 
 
-
 export function findMissingElements(jsonObj, requiredProperties) {
   const missingElements = [];
 
