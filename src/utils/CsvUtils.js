@@ -21,7 +21,7 @@ export function csvToJson(csv) {
     result.push(obj);
   }
 
-  return { headers: headers, data: result };
+  return { headers: headers, result: result };
 }
 
 

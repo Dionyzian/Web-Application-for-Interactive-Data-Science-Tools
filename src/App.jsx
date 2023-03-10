@@ -49,7 +49,7 @@ function App() {
   const handleCsvUpload = (data) => {
     setLoaded(false)
 
-    const newJsonData = csvToJson(data);
+    const newJsonData = data;
     setJsonData(newJsonData.data);
     setOriginalData(newJsonData.data)
 
