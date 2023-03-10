@@ -359,19 +359,19 @@ h1 {
 
 
 .main-header span:nth-child(1) {
-    animation: blur-in 0.8s 0.1s forwards cubic-bezier(0.11, 0, 0.5, 0);
+    animation: blur-in 1s 0.1s forwards cubic-bezier(0.11, 0, 0.5, 0);
 }
 
 .main-header span:nth-child(2) {
-    animation: blur-in 0.8s 0.2s forwards cubic-bezier(0.11, 0, 0.5, 0);
+    animation: blur-in 1s 0.2s forwards cubic-bezier(0.11, 0, 0.5, 0);
 }
 
 .main-header span:nth-child(3) {
-    animation: blur-in 0.8s 0.3s forwards cubic-bezier(0.11, 0, 0.5, 0);
+    animation: blur-in 1s 0.3s forwards cubic-bezier(0.11, 0, 0.5, 0);
 }
 
 .main-header span:nth-child(4) {
-    animation: blur-in 0.8s 0.4s forwards cubic-bezier(0.11, 0, 0.5, 0);
+    animation: blur-in 1s 0.4s forwards cubic-bezier(0.11, 0, 0.5, 0);
 }
 
 
