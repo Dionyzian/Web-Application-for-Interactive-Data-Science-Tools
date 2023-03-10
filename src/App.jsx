@@ -119,7 +119,7 @@ function App() {
 
   return (
     <div className='flex-col flex bg-[#F8F9FA] mx-4 my-6 md:ml-[5em] md:mr-[5em] pt-5 pb-5 min-h-screen'>
-      <h1 className='text-[#0077C2] mb-6 text-3xl md:text-6xl lg:text-5xl font-source font-black text-center md:text-left'>Interactive Data Science Tools</h1>
+      <h1 className='text-[#0077C2] mb-6 text-3xl md:text-6xl lg:text-5xl font-source font-black text-center md:text-left main-header '><span>Interactive</span><span> Data</span><span> Science</span><span> Tools</span></h1>
 
       <div className='flex items-center justify-center md:justify-start'>
         <h2 className='text-[#524E54] text-xl md:text-3xl font-source font-bold text-center md:text-left'>Import your data </h2>
@@ -139,6 +139,9 @@ function App() {
       <div className='mx-auto lg:mx-0 mt-[5em] mb-[1em]'>
         <CsvInput onUpload={handleCsvUpload} />
       </div>
+
+
+
 
       {loaded && dataFeatureTypes.numerical.length >= 2 &&
         <div key={key} className='fade-in'>
