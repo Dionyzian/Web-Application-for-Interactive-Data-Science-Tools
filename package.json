@@ -16,19 +16,14 @@
     "@progress/kendo-react-charts": "^5.11.0",
     "@progress/kendo-react-intl": "^5.11.0",
     "framer-motion": "^10.0.1",
-    "hammerjs": "^2.0.8",
     "react": "^18.2.0",
-    "react-awesome-reveal": "^4.2.3",
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
     "react-intersection-observer": "^9.4.3",
-    "react-spring": "^9.7.0",
-    "react-transition-group": "^4.4.5",
     "react-use-draggable-scroll": "^0.4.7",
     "recharts": "^2.4.3",
     "simple-statistics": "^7.8.3",
-    "vite-plugin-svgr": "^2.4.0",
-    "xlsx": "^0.18.5"
+    "vite-plugin-svgr": "^2.4.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",
