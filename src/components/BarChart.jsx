@@ -27,7 +27,7 @@ const BarChartComponent = ({ data, nominalFeature }) => {
   return (
     <>
       <div className='relative'>
-        <DownloadIcon className="absolute top-[25px] right-[17%] z-50 download-icon" />
+        <DownloadIcon onClick={handleDownload} className="absolute top-[25px] right-[17%] z-50 download-icon" />
         <ResponsiveContainer width="90%" height={350}>
           <BarChart ref={ref} data={dataCounts} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" />
