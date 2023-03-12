@@ -11,7 +11,7 @@ This project's main objective is to provide tools and functionalities for struct
 - [ ] Outliers detection using z-score.
 - [ ] Outliers detection using IQR.
 - [ ] Dimensionality reduction using PCA.
-- [ ] Make the charts downloadable.
+- [X] Make the charts downloadable.
 - [ ] Missing data handling techniques (removal, imputation, KNN imputation, etc).
 - [ ] Chart report generation.
 

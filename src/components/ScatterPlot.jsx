@@ -1,17 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import {
   ScatterChart,
   ReferenceLine,
-  Line,
   Scatter,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  Label,
 } from 'recharts';
 import SelectOpt from './SelectOpt';
+import { useCurrentPng } from 'recharts-to-png';
+import { ReactComponent as DownloadIcon } from '../assets/download-icon.svg'
+
 
 const ScatterPlot = ({ data, stats, numericalFeatures }) => {
   const [x, setX] = useState(numericalFeatures[0]);
@@ -20,6 +21,9 @@ const ScatterPlot = ({ data, stats, numericalFeatures }) => {
   const [maxX, setMaxX] = useState(stats[numericalFeatures[0]].max);
   const [minY, setMinY] = useState(Math.floor(stats[numericalFeatures[1]].min));
   const [maxY, setMaxY] = useState(stats[numericalFeatures[1]].max);
+  const [getPng, { ref, isLoading }] = useCurrentPng();
+
+
 
   useEffect(() => {
     setX(numericalFeatures[0]);
@@ -45,11 +49,21 @@ const ScatterPlot = ({ data, stats, numericalFeatures }) => {
     setMaxY(Math.ceil(stats[e.target.value].max));
   };
 
+  const handleDownload = useCallback(async () => {
+    const png = await getPng();
+
+    if (png) {
+      saveAs(png, 'myChart.png');
+    }
+  }, [getPng]);
+
   return (
     <div className='rounded-[1.5em] flex-col pt-4 pb-4 w-[100%] mt-2 animate-fade-in-up'>
-      <div className='aspect-w-1 aspect-h-1'>
+      <div className='relative aspect-w-1 aspect-h-1'>
+        <DownloadIcon onClick={handleDownload} className="absolute top-[22px] right-[6%] z-50 download-icon" />
         <ResponsiveContainer width='100%' aspect={1.5}>
           <ScatterChart
+            ref={ref}
             margin={{
               top: 20,
               right: 20,
