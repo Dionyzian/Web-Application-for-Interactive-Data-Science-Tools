@@ -1,120 +1,117 @@
-import React, { PureComponent, memo } from 'react';
-import { ScatterChart, ReferenceLine, Line, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Label } from 'recharts';
+import { useState, useEffect } from 'react';
+import {
+  ScatterChart,
+  ReferenceLine,
+  Line,
+  Scatter,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  Label,
+} from 'recharts';
 import SelectOpt from './SelectOpt';
 
-class ScatterPlot extends PureComponent {
+const ScatterPlot = ({ data, stats, numericalFeatures }) => {
+  const [x, setX] = useState(numericalFeatures[0]);
+  const [y, setY] = useState(numericalFeatures[1]);
+  const [minX, setMinX] = useState(Math.floor(stats[numericalFeatures[0]].min));
+  const [maxX, setMaxX] = useState(stats[numericalFeatures[0]].max);
+  const [minY, setMinY] = useState(Math.floor(stats[numericalFeatures[1]].min));
+  const [maxY, setMaxY] = useState(stats[numericalFeatures[1]].max);
 
-  constructor(props) {
-    super(props)
+  useEffect(() => {
+    setX(numericalFeatures[0]);
+    setY(numericalFeatures[1]);
+    setMinX(Math.floor(stats[numericalFeatures[0]].min));
+    setMaxX(Math.round(stats[numericalFeatures[0]].max));
+    setMinY(Math.floor(stats[numericalFeatures[1]].min));
+    setMaxY(Math.round(stats[numericalFeatures[1]].max));
+  }, [numericalFeatures, stats]);
 
-    const { data, stats, numericalFeatures } = props
+  const handleChangeX = (e) => {
+    console.log('x changed');
 
-    this.handleChangeX = this.handleChangeX.bind(this);
-    this.handleChangeY = this.handleChangeY.bind(this);
+    setX(e.target.value);
+    setMinX(Math.floor(stats[e.target.value].min));
+    setMaxX(Math.ceil(stats[e.target.value].max));
+  };
 
-    this.state = {
-      x: numericalFeatures[0],
-      y: numericalFeatures[1],
-      minX: Math.floor(stats[numericalFeatures[0]].min),
-      maxX: stats[numericalFeatures[0]].max,
-      minY: Math.floor(stats[numericalFeatures[1]].min),
-      maxY: stats[numericalFeatures[1]].max
-    };
-  }
+  const handleChangeY = (e) => {
+    console.log('y changed');
+    setY(e.target.value);
+    setMinY(Math.floor(stats[e.target.value].min));
+    setMaxY(Math.ceil(stats[e.target.value].max));
+  };
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.numericalFeatures !== this.props.numericalFeatures) {
-      const { stats, numericalFeatures } = this.props;
+  return (
+    <div className='rounded-[1.5em] flex-col pt-4 pb-4 w-[100%] mt-2 animate-fade-in-up'>
+      <div className='aspect-w-1 aspect-h-1'>
+        <ResponsiveContainer width='100%' aspect={1.5}>
+          <ScatterChart
+            margin={{
+              top: 20,
+              right: 20,
+              bottom: 20,
+              left: 20,
+            }}
+          >
+            <CartesianGrid />
+            <XAxis
+              domain={[minX, maxX]}
+              type='number'
+              dataKey={x}
+              name={x}
+              label={{ value: x, position: 'bottom' }}
+            />
+            <YAxis
+              domain={[minY, maxY]}
+              type='number'
+              dataKey={y}
+              name={y}
+              label={{ value: y, angle: -90, position: 'insideLeft' }}
+            />
+            <Tooltip cursor={{ strokeDasharray: '3 3' }} />
 
-      this.setState({
-        x: numericalFeatures[0],
-        y: numericalFeatures[1],
-        minX: Math.floor(stats[numericalFeatures[0]].min),
-        maxX: Math.round(stats[numericalFeatures[0]].max),
-        minY: Math.floor(stats[numericalFeatures[1]].min),
-        maxY: Math.round(stats[numericalFeatures[1]].max),
-      });
-    }
-  }
+            {minX < 0 && (
+              <ReferenceLine
+                y={0}
+                stroke='gray'
+                strokeWidth={1.5}
+                strokeOpacity={1}
+              />
+            )}
+            {minY < 0 && (
+              <ReferenceLine
+                x={0}
+                stroke='gray'
+                strokeWidth={1.5}
+                strokeOpacity={1}
+              />
+            )}
 
-  handleChangeX = (e) => {
-    console.log('x changed')
-
-    this.setState({
-      x: e.target.value,
-      minX: Math.floor(this.props.stats[e.target.value].min),
-      maxX: Math.ceil(this.props.stats[e.target.value].max),
-    })
-  }
-
-  handleChangeY = (e) => {
-    console.log('y changed')
-    this.setState({
-      y: e.target.value,
-      minY: Math.floor(this.props.stats[e.target.value].min),
-      maxY: Math.ceil(this.props.stats[e.target.value].max),
-    })
-  }
-
-  render() {
-    const { minX, maxX, minY, maxY } = this.state
-
-    return (
-      <div className='rounded-[1.5em] flex-col pt-4 pb-4 w-[100%] mt-2 animate-fade-in-up'>
-        <div className="aspect-w-1 aspect-h-1">
-          <ResponsiveContainer width="100%" aspect={1.5}>
-            <ScatterChart
-              margin={{
-                top: 20,
-                right: 20,
-                bottom: 20,
-                left: 20,
-              }}
-            >
-              <CartesianGrid />
-              <XAxis domain={[minX, maxX]} type="number" dataKey={this.state.x} name={this.state.x} label={{ value: this.state.x, position: 'bottom' }} />
-              <YAxis domain={[minY, maxY]} type="number" dataKey={this.state.y} name={this.state.y} label={{ value: this.state.y, angle: -90, position: 'insideLeft' }} />
-              <Tooltip cursor={{ strokeDasharray: '3 3' }} />
-
-              {minX < 0 && (
-                <ReferenceLine
-                  y={0}
-                  stroke="gray"
-                  strokeWidth={1.5}
-                  strokeOpacity={1}
-                />
-              )}
-              {minY < 0 && (
-                <ReferenceLine
-                  x={0}
-                  stroke="gray"
-                  strokeWidth={1.5}
-                  strokeOpacity={1}
-                />
-              )}
-
-
-              <Scatter name='' data={this.props.data} fill="#8884d8" />
-            </ScatterChart>
-          </ResponsiveContainer>
-        </div>
-
-        <div className='flex justify-center mt-3 gap-3'>
-          <SelectOpt
-            features={this.props.numericalFeatures}
-            onChangeFeature={this.handleChangeX}
-            initialValue={this.state.x}
-            label='X : '
-          />
-          <SelectOpt
-            features={this.props.numericalFeatures}
-            onChangeFeature={this.handleChangeY}
-            initialValue={this.state.y}
-            label='Y : '
-          />
-        </div>
+            <Scatter name='' data={data} fill='#8884d8' />
+          </ScatterChart>
+        </ResponsiveContainer>
       </div>
-    );
-  }
+
+      <div className='flex justify-center mt-3 gap-3'>
+        <SelectOpt
+          features={numericalFeatures}
+          onChangeFeature={handleChangeX}
+          initialValue={x}
+          label='X : '
+        />
+        <SelectOpt
+          features={numericalFeatures}
+          onChangeFeature={handleChangeY}
+          initialValue={y}
+          label='Y : '
+        />
+      </div>
+    </div>
+  );
 }
+
 export default ScatterPlot;
