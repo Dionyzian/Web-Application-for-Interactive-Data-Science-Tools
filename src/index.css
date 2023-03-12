@@ -377,3 +377,15 @@ h1 {
 
 
 /**************************************/
+
+/********Download icon*****************/
+.download-icon {
+    opacity: 0.5;
+}
+
+.download-icon:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+/**************************************/
