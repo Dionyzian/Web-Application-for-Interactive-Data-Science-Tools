@@ -1,32 +1,20 @@
-import React, { useState, useCallback } from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Line, Label, ResponsiveContainer } from 'recharts';
-import { useCurrentPng } from 'recharts-to-png';
-import { saveAs } from 'file-saver';
-import { ReactComponent as DownloadIcon } from '../assets/download-icon.svg'
+import ReactApexChart from "react-apexcharts"
+import { useState } from "react";
 
-const Histogram = ({ jsonData, feature, numericalFeatures }) => {
+const Histogram = ({ data, feature, numericalFeatures }) => {
+
   const [bins, setBinsNum] = useState(10)
-  const [getPng, { ref, isLoading }] = useCurrentPng();
-
-  const handleDownload = useCallback(async () => {
-    const png = await getPng();
-
-    if (png) {
-      saveAs(png, 'myChart.png');
-    }
-  }, [getPng]);
 
   const handleChangeBinsNum = (event) => {
     setBinsNum(parseInt(event.target.value));
   }
 
   const featureValues = [];
-  for (let obj of jsonData) {
+  for (let obj of data) {
     if (obj.hasOwnProperty(feature) && !isNaN(obj[feature]) && obj[feature]) {
       featureValues.push(obj[feature]);
     }
   }
-  // Setting up the histogram data according to the number of bins 
   const histogramData = [];
   const [min, max] = [Math.min(...featureValues), Math.max(...featureValues)];
   const binSize = (max - min) / bins;
@@ -42,28 +30,45 @@ const Histogram = ({ jsonData, feature, numericalFeatures }) => {
     });
   }
 
-  return (
+  console.log(histogramData)
 
-    <div className='rounded-[1.5em] flex-col pt-4 pb-4 w-[100%] mt-2'>
-      <div className="relative">
-        <DownloadIcon onClick={handleDownload} className="absolute top-[12px] right-[12%] z-50 download-icon" />
-        <ResponsiveContainer width="90%" height={350}>
-          <BarChart ref={ref} data={histogramData} barCategoryGap='1%'>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis
-              dataKey="bin"
-              interval={0}
-              angle={-45}
-              textAnchor='end'
-              height={85}
-              tick={{ dx: 15 }}
-            />
-            <YAxis />
-            <Tooltip />
-            <Bar dataKey="count" fill="#8884d8" />
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
+  const options = {
+    chart: {
+      type: 'bar',
+      height: 350
+    },
+    plotOptions: {
+      bar: {
+        borderRadius: 4,
+        horizontal: true,
+      }
+    },
+    plotOptions: {
+      bar: {
+        borderRadius: 4,
+        horizontal: false, // set horizontal to false
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    xaxis: {
+      categories: histogramData.map((row) => {
+        return row.bin
+      }),
+    }
+  }
+
+  let series = histogramData.map((row) => {
+    return row.count
+  })
+
+  series = [{ data: series }]
+
+
+  return (
+    <div id="chart">
+      <ReactApexChart options={options} series={series} type="bar" height={350} />
 
       <div className="flex flex-col items-center lg:flex-row lg:justify-center">
         <label htmlFor="bins" className="text-center mb-2 lg:mr-2">
@@ -83,8 +88,7 @@ const Histogram = ({ jsonData, feature, numericalFeatures }) => {
         </select>
       </div>
     </div>
+  )
+}
 
-  );
-};
-
-export default Histogram;
+export default Histogram

@@ -13,7 +13,7 @@ import PaginatedTable from './components/PaginatedTable';
 import MissingData from './components/MissingData';
 
 import ScatterPlot from './components/ScatterPlot';
-import HistogramComponent from './components/Histogram';
+import Histogram from './components/Histogram';
 import BarChart from './components/BarChart';
 
 import NumericalBasicStats from './components/BasicNumericalStats';
@@ -161,7 +161,7 @@ function App() {
             </div>
 
             <div className="aspect-w-1 aspect-h-1 mt-auto mb-auto" >
-              <HistogramComponent feature={numericalFeature} jsonData={jsonData} numericalFeatures={dataFeatureTypes.numerical} />
+              <Histogram feature={numericalFeature} data={jsonData} numericalFeatures={dataFeatureTypes.numerical} />
             </div>
           </div>
 
