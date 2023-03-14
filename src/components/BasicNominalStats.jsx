@@ -67,38 +67,30 @@ const BasicNominalStats = ({ stats, nominalFeatures, feature, onChangeFeature })
             <tr>
               <td className="pr-4 text-gray-700">Distinct Values:</td>
               <td className="text-gray-900">
-                <motion.div
-                  className="flex flex-col h-36 overflow-y-auto border-solid border-[2px] rounded-lg px-3 py-2 my-3"
-                  variants={variants}
-                  initial="hidden"
-                  animate="visible"
-                >
+                <div className="flex flex-col h-36 overflow-y-auto border-solid border-[2px] rounded-lg p-3 my-3 bg-white shadow-md max-w-full">
                   {stats[feature].distinctValues.map((value, index) => (
                     <div key={index} className="py-1">
                       {value}
                     </div>
                   ))}
-                </motion.div>
-              </td>
-            </tr>
-            <tr>
-              <td className="pr-4 text-gray-700">Frequency Percentages:</td>
-              <td className="text-gray-900">
-                <motion.div
-                  className="flex flex-col h-36 overflow-y-auto px-3 py-2 border-solid border-[2px] rounded-lg"
-                  variants={variants}
-                  initial="hidden"
-                  animate="visible"
-                >
+                </div>
+
+                <div className="flex flex-col h-36 overflow-y-auto border-solid border-[2px] rounded-lg p-3 my-3 bg-white shadow-md max-w-full">
                   {Object.entries(stats[feature].frequencyPercentages).map((entry, index) => (
-                    <div key={index} className="flex flex-row py-1">
-                      <div className="w-1/2">{entry[0]}</div>
-                      <div className="w-1/2">{entry[1].toFixed(2)}%</div>
+                    <div key={index} className="flex flex-col md:flex-row py-1">
+                      <div className="w-1/2 break-all">
+                        {entry[0]}
+                      </div>
+                      <div className="w-1/2">
+                        {entry[1].toFixed(2)}%
+                      </div>
                     </div>
                   ))}
-                </motion.div>
+                </div>
               </td>
             </tr>
+
+
           </tbody>
         </motion.table>
       )}
