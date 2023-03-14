@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CsvInput from './components/CsvInput';
 import {
-  csvToJson,
   findMissingElements,
   getJsonFeatureTypes,
   getBasicStats,
@@ -15,7 +14,7 @@ import MissingData from './components/MissingData';
 
 import ScatterPlot from './components/ScatterPlot';
 import HistogramComponent from './components/Histogram';
-import BarChartComponent from './components/BarChart';
+import BarChart from './components/BarChart';
 
 import NumericalBasicStats from './components/BasicNumericalStats';
 import BasicNominalStats from './components/BasicNominalStats';
@@ -26,12 +25,12 @@ import { ReactComponent as CleaningService } from "./assets/cleaning-services-ic
 import { ReactComponent as BarChartIcon } from "./assets/barchart-icon.svg";
 import { ReactComponent as CalculatorIcon } from "./assets/calculator-icon.svg";
 
+
 function App() {
   const [jsonData, setJsonData] = useState([])
   const [originalData, setOriginalData] = useState([])
   const [dataFeatureTypes, setDataFeatureTypes] = useState({})
   const [missingData, setMissingData] = useState({})
-  const [standardData, setStandardData] = useState({})
 
   const [numericalFeature, setNumericalFeature] = useState('')
   const [nominalFeature, setNominalFeature] = useState('')
@@ -142,9 +141,10 @@ function App() {
 
 
 
-
       {loaded && dataFeatureTypes.numerical.length >= 2 &&
         <div key={key} className='fade-in'>
+
+
 
           <PaginatedTable jsonData={jsonData} numericalFeatures={dataFeatureTypes.numerical} nominalFeatures={dataFeatureTypes.nominal} />
 
@@ -171,7 +171,7 @@ function App() {
             </div>
 
             <div className="aspect-w-1 aspect-h-1 mt-auto mb-auto order-2 sm:order-1">
-              <BarChartComponent data={jsonData} nominalFeature={nominalFeature} />
+              <BarChart data={jsonData} nominalFeature={nominalFeature} />
             </div>
           </div>
 
