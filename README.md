@@ -11,13 +11,12 @@ This project's main objective is to provide tools and functionalities for struct
 - [ ] Outliers detection using z-score.
 - [ ] Outliers detection using IQR.
 - [ ] Dimensionality reduction using PCA.
-- [X] Make the charts downloadable.
 - [ ] Missing data handling techniques (removal, imputation, KNN imputation, etc).
-- [ ] Chart report generation.
+- [ ] Chart report template generation.
 
 ## Technologies Used
 
 - Framework : React.js
 - Styling : Tailwind
 - Animation : Framer Motion & CSS
-- Charting : Recharts.js
+- Charting : ApexCharts
