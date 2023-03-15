@@ -11,6 +11,8 @@ import {
 } from "../utils/CsvUtils";
 
 
+
+
 const DataTransformation = ({ data, originalData, numericalFeatures, nominalFeatures, onDataChange, numericalStats }) => {
   const [selectedTransformation, setSelectedTransformation] = useState(null);
   const { ref: inViewRef, inView } = useInView({ threshold: 0.5, triggerOnce: true });
@@ -86,6 +88,18 @@ const DataTransformation = ({ data, originalData, numericalFeatures, nominalFeat
     visible: { y: 0, opacity: 1 },
   };
 
+  const buttonVariant = {
+    initial: {
+      backgroundColor: "#E5E7EB",
+    },
+    hover: {
+      backgroundColor: "#9CA3AF",
+    },
+    selected: {
+      backgroundColor: "#9CA3AF",
+    },
+  };
+
   return (
     <div className="flex flex-col items-center mt-3" ref={inViewRef}>
       {transformations.map((transformation) => (
@@ -93,19 +107,20 @@ const DataTransformation = ({ data, originalData, numericalFeatures, nominalFeat
           key={transformation.name}
           className="w-[80%] lg:w-[60%] my-1 rounded-md shadow-md overflow-hidden"
         >
-          <div
+          <motion.div
             className="flex items-center justify-between cursor-pointer bg-gray-200 py-2 px-4"
             onClick={() => handleTransformationClick(transformation.name)}
+            variants={buttonVariant}
+            initial="initial"
+            whileHover="hover"
+            whileTap="selected"
+            animate={selectedTransformation === transformation.name ? "selected" : "initial"}
           >
-            <h3 className="text-lg font-semibold">{transformation.name}</h3>
-            <span>
-              {selectedTransformation === transformation.name ? (
-                <FaMinus />
-              ) : (
-                transformation.icon
-              )}
-            </span>
-          </div>
+            <motion.h3 className="text-lg font-semibold">{transformation.name}</motion.h3>
+            <motion.span animate={{ rotate: selectedTransformation === transformation.name ? -45 : 0 }}>
+              {selectedTransformation === transformation.name ? <FaMinus /> : transformation.icon}
+            </motion.span>
+          </motion.div>
           {selectedTransformation === transformation.name && (
             <motion.div
               className="px-4 py-2 bg-gray-100"
