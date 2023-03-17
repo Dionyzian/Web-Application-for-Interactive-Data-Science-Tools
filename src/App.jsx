@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import CsvInput from './components/CsvInput';
 import {
   findMissingElements,
@@ -27,94 +27,69 @@ import { ReactComponent as CalculatorIcon } from "./assets/calculator-icon.svg";
 
 
 function App() {
-  const [jsonData, setJsonData] = useState([])
-  const [originalData, setOriginalData] = useState([])
-  const [dataFeatureTypes, setDataFeatureTypes] = useState({})
-  const [missingData, setMissingData] = useState({})
-
-  const [numericalFeature, setNumericalFeature] = useState('')
-  const [nominalFeature, setNominalFeature] = useState('')
-
-  const [basicNumericalStats, setBasicNumericalStats] = useState({})
-  const [basicNominalStats, setBasicNominalStats] = useState({})
-  const [correlations, setCorrelations] = useState([])
-
+  const [jsonData, setJsonData] = useState([]);
+  const [originalData, setOriginalData] = useState([]);
+  const [dataFeatureTypes, setDataFeatureTypes] = useState({});
+  const [missingData, setMissingData] = useState({});
+  const [numericalFeature, setNumericalFeature] = useState('');
+  const [nominalFeature, setNominalFeature] = useState('');
+  const [basicNumericalStats, setBasicNumericalStats] = useState({});
+  const [basicNominalStats, setBasicNominalStats] = useState({});
   const [numScatterPlots, setNumScatterPlots] = useState(1);
+  const [key, setKey] = useState(true)
+  const [loaded, setLoaded] = useState(false);
 
-  const [key, setKey] = useState(false);
-  const [loaded, setLoaded] = useState(false)
+  const handleCsvUpload = useCallback((data) => {
+    setLoaded(false);
 
+    const newJsonData = data.data;
+    setJsonData(newJsonData);
+    setOriginalData(newJsonData);
 
-  const handleCsvUpload = (data) => {
-    setLoaded(false)
-
-    const newJsonData = data;
-    setJsonData(newJsonData.data);
-    setOriginalData(newJsonData.data)
-
-    const newFeatureTypes = getJsonFeatureTypes(newJsonData.data);
+    const newFeatureTypes = getJsonFeatureTypes(newJsonData);
     setDataFeatureTypes(newFeatureTypes);
 
-    const newBasicNumericalState = getBasicStats(newJsonData.data, newFeatureTypes.numerical)
-    setBasicNumericalStats(newBasicNumericalState);
+    setNumericalFeature(newFeatureTypes.numerical[0]);
+    setNominalFeature(newFeatureTypes.nominal[0]);
 
-    const newBasicNominalStats = getNominalStats(newJsonData.data, newFeatureTypes.nominal)
-    setBasicNominalStats(newBasicNominalStats)
+    setBasicNumericalStats(getBasicStats(newJsonData, newFeatureTypes.numerical));
+    setBasicNominalStats(getNominalStats(newJsonData, newFeatureTypes.nominal));
 
-    const newCorrelations = getCorrelations(newJsonData.data, newFeatureTypes.numerical)
-    setCorrelations(newCorrelations)
+    setMissingData(findMissingElements(newJsonData, data.headers));
 
-    const newMissingData = findMissingElements(newJsonData.data, newJsonData.headers)
-    setMissingData(newMissingData)
+    setNumScatterPlots(1);
 
-    setNumericalFeature(newFeatureTypes.numerical[0])
-    setNominalFeature(newFeatureTypes.nominal[0])
+    setKey(key => !key);
 
-    setKey(!key)
+    setLoaded(true);
+  }, []);
 
-    setNumScatterPlots(1)
-
-    setLoaded(true)
-  };
 
   useEffect(() => {
     if (jsonData.length > 0) {
       const newFeatureTypes = getJsonFeatureTypes(jsonData);
       setDataFeatureTypes(newFeatureTypes);
-
-      const newBasicNumericalState = getBasicStats(jsonData, newFeatureTypes.numerical)
-      setBasicNumericalStats(newBasicNumericalState);
-
-      const newBasicNominalStats = getNominalStats(jsonData, newFeatureTypes.nominal)
-      setBasicNominalStats(newBasicNominalStats)
+      setBasicNumericalStats(getBasicStats(jsonData, newFeatureTypes.numerical));
+      setBasicNominalStats(getNominalStats(jsonData, newFeatureTypes.nominal));
     }
-  }, [jsonData])
-
-  useEffect(() => {
-
-  }, [jsonData])
+  }, [jsonData]);
 
 
-  const handleChangeData = (newData) => {
+  const handleChangeData = useCallback((newData) => {
     setJsonData(newData);
-  }
+  }, []);
 
-  const handleChangeFeatureTypes = (newFeatureTypes) => {
-    setDataFeatureTypes(newFeatureTypes)
-  }
+  const handleAddScatterPlot = useCallback(() => {
+    setNumScatterPlots(numScatterPlots => numScatterPlots + 1);
+  }, []);
 
-  const handleAddScatterPlot = () => {
-    setNumScatterPlots(numScatterPlots + 1);
-  }
+  const handleChangeNumericalFeature = useCallback((newFeature) => {
+    setNumericalFeature(newFeature);
+  }, []);
 
-  const handleChangeNumericalFeature = (newFeature) => {
-    setNumericalFeature(newFeature)
-  }
-
-  const handleChangeNominalFeature = (newFeature) => {
+  const handleChangeNominalFeature = useCallback((newFeature) => {
     setNominalFeature(newFeature)
-  }
-
+  }, []);
 
   return (
     <div className='flex-col flex bg-[#F8F9FA] mx-4 my-6 md:ml-[5em] md:mr-[5em] pt-5 pb-5 min-h-screen'>
