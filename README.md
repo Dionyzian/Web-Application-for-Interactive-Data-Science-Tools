@@ -5,6 +5,11 @@ Link : https://chipper-madeleine-3f429e.netlify.app/
 
 This project's main objective is to provide tools and functionalities for structured data preprocessing, visualization and analysis techniques to users with no coding experience in dedicated programming languages, like Python and R, but are looking to have a glimpse at their data, generate charts and report templates and perform operations on their data. 
 
+## Demo
+
+![](https://github.com/Dionyzian/Web-Application-for-Interactive-Data-Science-Tools/blob/main/demo.gif)
+
+
 ## Task List
 
 - [ ] Add XLSX file type support.
